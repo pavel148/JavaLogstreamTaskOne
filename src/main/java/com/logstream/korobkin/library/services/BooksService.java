@@ -7,47 +7,38 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
-public class BookService {
-
-
+public class BooksService {
 
     private final BooksRepository booksRepository;
 
     @Autowired
-    public BookService(BooksRepository booksRepository) {
+    public BooksService(BooksRepository booksRepository) {
         this.booksRepository = booksRepository;
     }
 
     @Transactional(readOnly = true)
-    public List<Book> findAll(){return booksRepository.findAll();}
-
-
-    @Transactional(readOnly = true)
-    public Book findOne(String isbn){
-        Optional<Book> foundBook = booksRepository.findById(isbn);
-        return foundBook.orElse(null);
+    public List<Book> findAll() {
+        return booksRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public Book findOne(String isbn) {
+        return booksRepository.findById(isbn).orElse(null);
+    }
 
-    public void save(Book book){
+    public void save(Book book) {
         booksRepository.save(book);
     }
 
-
-
-    public void update(String isbn, Book updateBook){
+    public void update(String isbn, Book updateBook) {
         updateBook.setIsbn(isbn);
         booksRepository.save(updateBook);
     }
 
-
-
-    public void delete(Book book){
+    public void delete(Book book) {
         booksRepository.deleteById(book.getIsbn());
     }
-
 }

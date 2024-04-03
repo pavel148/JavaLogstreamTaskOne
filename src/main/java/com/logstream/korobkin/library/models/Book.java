@@ -17,7 +17,6 @@ public class Book {
     @Size(min=17, max =22)
     private String isbn;
 
-
     @Column(name  = "title")
     @NotEmpty(message = "The title of the book should not be empty")
     @Size(min=1, max =100, message = "The title of the book should be from 1 to 100 characters long")
